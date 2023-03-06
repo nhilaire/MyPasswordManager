@@ -12,11 +12,11 @@
 
         public bool MatchQuery(string query)
         {
-            return Category.Contains(query, StringComparison.OrdinalIgnoreCase)
-                || Title.Contains(query, StringComparison.OrdinalIgnoreCase)
-                || Notes.Contains(query, StringComparison.OrdinalIgnoreCase)
-                || Login.Contains(query, StringComparison.OrdinalIgnoreCase)
-                || Url.Contains(query, StringComparison.OrdinalIgnoreCase);
+            return (Category != null && Category.Contains(query, StringComparison.OrdinalIgnoreCase))
+                || (Title != null && Title.Contains(query, StringComparison.OrdinalIgnoreCase))
+                || (Notes != null && Notes.Contains(query, StringComparison.OrdinalIgnoreCase))
+                || (Login != null && Login.Contains(query, StringComparison.OrdinalIgnoreCase))
+                || (Url != null && Url.Contains(query, StringComparison.OrdinalIgnoreCase));
         }
     }
 }

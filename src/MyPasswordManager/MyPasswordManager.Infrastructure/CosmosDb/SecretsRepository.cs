@@ -6,11 +6,10 @@ using System.Net;
 
 namespace MyPasswordManager.Infrastructure.CosmosDb
 {
-    public class SecretsRepository : ISecret, IAuthenticate
+    public class SecretsRepository : ISecret
     {
         private readonly CosmosDbConfiguration _cosmosDbConfiguration;
         private Container? _container;
-        private static readonly Random _random = new Random();
 
         public SecretsRepository(CosmosDbConfiguration cosmosDbConfiguration)
         {
@@ -110,17 +109,12 @@ namespace MyPasswordManager.Infrastructure.CosmosDb
         {
             try
             {
-                // Read the item to see if it exists.  
                 var response = await container.ReadItemAsync<SecretDAO>(id, new PartitionKey(SecretDAO.UniquePartition));
                 return Option<SecretDAO>.Some(response);
             }
             catch (CosmosException ex) when (ex.StatusCode == HttpStatusCode.NotFound)
             {
                 return Option<SecretDAO>.None;
-            }
-            catch (Exception ex)
-            {
-                throw;
             }
         }
 

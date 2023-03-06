@@ -40,7 +40,7 @@ namespace MyPasswordManager.Intregation.Tests
 
             var repository = _serviceProvider.GetRequiredService<ISecret>();
 
-            LoginWithSuccess((IAuthenticate)repository);
+            LoginWithSuccess(repository);
 
             var secretId = TestBeginningId + Guid.NewGuid().ToString();
             await repository.AddSecret(new Secret(secretId, testCategory1, testTitle1, null, testLogin1, testPassword1, testUrl1));
@@ -77,7 +77,7 @@ namespace MyPasswordManager.Intregation.Tests
         public async Task CannotAddSecretWithLoginAsFailure()
         {
             var repository = _serviceProvider.GetRequiredService<ISecret>();
-            LoginWithFailure((IAuthenticate)repository);
+            LoginWithFailure(repository);
 
             await repository.AddSecret(new Secret(
                 TestBeginningId + Guid.NewGuid().ToString(),
@@ -98,7 +98,7 @@ namespace MyPasswordManager.Intregation.Tests
             }
         }
 
-        private void LoginWithSuccess(IAuthenticate secretRepository)
+        private void LoginWithSuccess(ISecret secretRepository)
         {
             var login = _config["login"];
             var password = _config["password"];
@@ -107,7 +107,7 @@ namespace MyPasswordManager.Intregation.Tests
             result.Should().BeTrue();
         }
 
-        private void LoginWithFailure(IAuthenticate secretRepository)
+        private void LoginWithFailure(ISecret secretRepository)
         {
             var result = secretRepository.Authenticate(new LoginInfos("badlogin", "badpassword"));
             result.Should().BeFalse();

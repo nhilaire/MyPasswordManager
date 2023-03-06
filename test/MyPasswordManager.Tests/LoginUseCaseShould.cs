@@ -2,6 +2,7 @@ using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MyPasswordManager.Core.UseCases.Login;
 using MyPasswordManager.Tests.LoginDoubles;
+using MyPasswordManager.Tests.SecretsDoubles;
 
 namespace MyPasswordManager.Tests
 {
@@ -26,7 +27,7 @@ namespace MyPasswordManager.Tests
 
         private static LoginUseCase BuildLoginUseCase()
         {
-            return new LoginUseCase(new FakeAuthenticate());
+            return new LoginUseCase(new FakeSecretRepository());
         }
     }
 }

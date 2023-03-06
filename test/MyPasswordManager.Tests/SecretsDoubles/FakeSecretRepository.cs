@@ -1,4 +1,6 @@
-﻿using MyPasswordManager.Core.Domain.Secrets;
+﻿using MyPasswordManager.Core.Domain.Login;
+using MyPasswordManager.Core.Domain.Secrets;
+using MyPasswordManager.Tests.LoginDoubles;
 
 namespace MyPasswordManager.Tests.SecretsDoubles
 {
@@ -9,6 +11,16 @@ namespace MyPasswordManager.Tests.SecretsDoubles
         public FakeSecretRepository()
         {
             _inMemorySecrets = new List<Secret>();
+        }
+        
+        public bool Authenticate(LoginInfos loginInfos)
+        {
+            var badUserRequest = new BadUserRequest();
+            if (loginInfos.Login == badUserRequest.Login && loginInfos.Password == badUserRequest.Password)
+            {
+                return false;
+            }
+            return true;
         }
 
         public Task<bool> AddSecret(Secret secret)

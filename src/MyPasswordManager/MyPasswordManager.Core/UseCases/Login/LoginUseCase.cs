@@ -1,12 +1,13 @@
 ﻿using MyPasswordManager.Core.Domain.Login;
+using MyPasswordManager.Core.Domain.Secrets;
 
 namespace MyPasswordManager.Core.UseCases.Login
 {
     public class LoginUseCase
     {
-        private readonly IAuthenticate _authenticate;
+        private readonly ISecret _authenticate;
 
-        public LoginUseCase(IAuthenticate authenticate)
+        public LoginUseCase(ISecret authenticate)
         {
             _authenticate = authenticate;
         }
