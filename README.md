@@ -82,3 +82,11 @@ And deploy to web app
 ```sh
 az webapp deployment source config-zip --resource-group $groupName --name $appname --src MyPasswordManager.zip
 ```
+
+Now you can configure secrets :
+
+```sh
+az webapp config appsettings set --name $appname --resource-group $groupName --settings "CosmosDbConfiguration:DatabaseName=$dbName"
+az webapp config appsettings set --name $appname --resource-group $groupName --settings "CosmosDbConfiguration:ContainerName=$containerName"
+az webapp config appsettings set --name $appname --resource-group $groupName --settings "CosmosDbConfiguration:ConnectionString=AccountEndpoint=https://##login##.documents.azure.com:443/;AccountKey=##password##"
+```
