@@ -54,3 +54,31 @@ In case of errors and you want to delete everything, just delete the ressource g
 az group delete --name $groupName
 ```
 
+You can now create the free app service plan :
+```sh
+$appServicePlanName = "MyPasswordManagerFreePlan"
+az appservice plan create --name $appServicePlanName --resource-group $groupName --sku FREE
+```
+
+And the azure web app (appname must be unique) :
+
+```sh
+$appname = "MyPasswordManagerApp12345"
+az webapp create --name $appname --resource-group $groupName --plan $appServicePlanName
+```
+
+Now you can publish the app 
+```sh
+dotnet publish -c Release
+```
+
+Go to bin/Release/net7.0/publish and zip the file
+```sh
+cd .\MyPasswordManager\bin\Release\net7.0\publish\
+Compress-Archive -Path .\* -DestinationPath MyPasswordManager.zip
+```
+
+And deploy to web app
+```sh
+az webapp deployment source config-zip --resource-group $groupName --name $appname --src MyPasswordManager.zip
+```

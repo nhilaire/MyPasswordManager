@@ -17,7 +17,7 @@ using MyPasswordManager.Infrastructure.Extensions;
 var builder = WebApplication.CreateBuilder(args);
 
 var cosmosDbConfiguration = new CosmosDbConfiguration();
-var config = new ConfigurationBuilder().AddUserSecrets<Program>().Build();
+var config = new ConfigurationBuilder().AddUserSecrets<Program>().AddEnvironmentVariables().Build();
 config.GetSection("CosmosDbConfiguration").Bind(cosmosDbConfiguration);
 
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
